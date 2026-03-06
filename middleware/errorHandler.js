@@ -1,6 +1,7 @@
 function notFoundHandler(req, res, next) {
   res.status(404).json({
     success: false,
+    error: "Not Found",
     message: "404 Not Found - The requested resource does not exist"
   });
 }
@@ -10,7 +11,8 @@ function errorHandler(err, req, res, next) {
 
   res.status(err.status || 500).json({
     success: false,
-    message: err.message || "Internal Server Error"
+    error: "Server Error",
+    message: err.message || "An unexpected internal server error occurred"
   });
 }
 
