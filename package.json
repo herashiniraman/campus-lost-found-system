@@ -1,0 +1,26 @@
+{
+  "name": "campus-lost-found-system",
+  "version": "1.0.0",
+  "description": "Campus Lost & Found Management System using Node.js, Express, and MySQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql",
+    "lost-and-found",
+    "web-application"
+  ],
+  "author": "Herashini Raman",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-validator": "^7.2.0",
+    "helmet": "^8.0.0",
+    "mysql2": "^3.11.3"
+  }
+}
