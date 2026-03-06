@@ -23,6 +23,7 @@ const itemValidationRules = [
     .isLength({ min: 5, max: 1000 }).withMessage("Description must be between 5 and 1000 characters"),
 
   body("category")
+    .trim()
     .notEmpty().withMessage("Category is required")
     .isIn(["Lost", "Found"]).withMessage("Category must be Lost or Found"),
 
@@ -33,7 +34,7 @@ const itemValidationRules = [
 
   body("item_date")
     .notEmpty().withMessage("Date is required")
-    .isISO8601().withMessage("Date must be valid"),
+    .isISO8601().withMessage("Date must be a valid date"),
 
   body("contact_info")
     .trim()
@@ -42,14 +43,18 @@ const itemValidationRules = [
 
   body("status")
     .optional()
-    .isIn(["Active", "Claimed", "Resolved"]).withMessage("Invalid status")
+    .trim()
+    .isIn(["Active", "Claimed", "Resolved"]).withMessage("Status must be Active, Claimed, or Resolved")
 ];
 
 router.get("/", getAllItems);
 
 router.get(
   "/:id",
-  [param("id").isInt({ min: 1 }).withMessage("Invalid item ID")],
+  [
+    param("id")
+      .isInt({ min: 1 }).withMessage("Invalid item ID")
+  ],
   getItemById
 );
 
@@ -58,7 +63,8 @@ router.post("/", itemValidationRules, createItem);
 router.put(
   "/:id",
   [
-    param("id").isInt({ min: 1 }).withMessage("Invalid item ID"),
+    param("id")
+      .isInt({ min: 1 }).withMessage("Invalid item ID"),
     ...itemValidationRules
   ],
   updateItem
@@ -67,17 +73,22 @@ router.put(
 router.patch(
   "/:id/status",
   [
-    param("id").isInt({ min: 1 }).withMessage("Invalid item ID"),
+    param("id")
+      .isInt({ min: 1 }).withMessage("Invalid item ID"),
     body("status")
+      .trim()
       .notEmpty().withMessage("Status is required")
-      .isIn(["Active", "Claimed", "Resolved"]).withMessage("Invalid status")
+      .isIn(["Active", "Claimed", "Resolved"]).withMessage("Status must be Active, Claimed, or Resolved")
   ],
   updateItemStatus
 );
 
 router.delete(
   "/:id",
-  [param("id").isInt({ min: 1 }).withMessage("Invalid item ID")],
+  [
+    param("id")
+      .isInt({ min: 1 }).withMessage("Invalid item ID")
+  ],
   deleteItem
 );
 
